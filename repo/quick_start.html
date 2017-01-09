@@ -1,0 +1,290 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>快速脚本 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="Gitbook_flow.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="Gitbook_flow.html">
+            
+                <a href="Gitbook_flow.html">
+            
+                    
+                    Gitbook正常流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3" data-path="quick_start.html">
+            
+                <a href="quick_start.html">
+            
+                    
+                    快速脚本
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >快速脚本</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5FEB;&#x901F;&#x811A;&#x672C;">&#x5FEB;&#x901F;&#x811A;&#x672C;</h1>
+<h2 id="init">init</h2>
+<pre><code class="lang-shell">#!/bin/sh
+#usage ./initbook.sh gitbook_usage
+echo Your gitbook name is $1
+mkdir $1
+mkdir &quot;${1}_pages&quot;
+
+cd $1
+echo &quot;.DS_Store&quot; &gt; .gitignore
+git init
+git add .
+git commit -m &quot;init gitbook&quot;
+git remote add origin &quot;git@github.com:AlexanderWangsgithub/${1}.git&quot;
+git push -u origin master
+
+cd ../
+git clone &quot;git@github.com:AlexanderWangsgithub/${1}.git&quot; &quot;${1}_pages&quot;
+cd &quot;${1}_pages&quot;
+git checkout -b gh-pages
+git push -u origin gh-pages
+
+echo gitbook was inited!
+</code></pre>
+<h2 id="deploy">deploy</h2>
+<pre><code class="lang-shell">#!/bin/sh
+#usage ./deploybook.sh gitbook_usage
+echo Your gitbook name is $1
+gitbook init $1
+cp -r &quot;${1}/_book&quot; &quot;${1}_pages&quot; 
+cd &quot;${1}_pages&quot;
+
+git add .
+git commit -m `date|awk &apos;{print $2,$3,$4,$6}&apos;`
+git push -u origin gh-pages
+
+echo Your gitbook $1 was deployed!
+</code></pre>
+<blockquote>
+<p>&#x91C7;&#x7528;&#x4E24;&#x4E2A;&#x6587;&#x4EF6;&#x5939;&#x5E76;&#x901A;&#x8FC7;&#x590D;&#x5236;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4FDD;&#x8BC1;&#x4E86;&#x6BCF;&#x6B21;&#x4FEE;&#x6539;&#x662F;&#x589E;&#x91CF;&#x7684;</p>
+</blockquote>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Gitbook_flow.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Gitbook正常流程">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"快速脚本","level":"1.3","depth":1,"previous":{"title":"Gitbook正常流程","level":"1.2","depth":1,"path":"repo/Gitbook_flow.md","ref":"repo/Gitbook_flow.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"repo/quick_start.md","mtime":"2017-01-09T07:14:11.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-01-09T08:51:30.276Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
